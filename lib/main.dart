@@ -7,6 +7,8 @@ import 'package:amazon_clone_f/providers/user_provider.dart';
 import 'package:amazon_clone_f/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'features/admin/screens/admin_screen.dart';
+import 'features/auth/screens/auth_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -47,13 +49,12 @@ class _MyAppState extends State<MyApp> {
             color: Colors.black,
           ),
         ),
-        useMaterial3: true,
       ),
       onGenerateRoute: (settings)=>generateRoute(settings),
-      home:const BottomBar(),
+      home:Provider.of<UserProvider>(context).user.token.isNotEmpty?
+      Provider.of<UserProvider>(context).user.type=='user'? const BottomBar():const AdminScreen():
+      const AuthScreen(),
     );
   }
 }
-// Provider.of<UserProvider>(context).user.token.isNotEmpty?
-// Provider.of<UserProvider>(context).user.type=='user'? const BottomBar():const AdminScreen():
-// const AuthScreen(),
+
