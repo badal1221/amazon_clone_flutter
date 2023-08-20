@@ -13,7 +13,7 @@ const userRouter=require("./routes/user");
 const PORT=process.env.PORT||3000;
 const app=express();
 const DB=
-    "";
+    "MongoDB URI";
 
 //middleware
 //CLIENT->middleware->SERVER->CLIENT
