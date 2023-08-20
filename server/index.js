@@ -13,10 +13,10 @@ const userRouter=require("./routes/user");
 const PORT=process.env.PORT||3000;
 const app=express();
 const DB=
-"mongodb+srv://Badal:kyunbatau@cluster0.3gqq5r8.mongodb.net/?retryWrites=true&w=majority";
-//
-////middleware
-////CLIENT->middleware->SERVER->CLIENT
+    "";
+
+//middleware
+//CLIENT->middleware->SERVER->CLIENT
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
