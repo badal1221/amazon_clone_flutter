@@ -3,13 +3,11 @@ import 'package:amazon_clone_f/features/home/widgets/carousel_image.dart';
 import 'package:amazon_clone_f/features/home/widgets/deal_of_day.dart';
 import 'package:amazon_clone_f/features/home/widgets/top_categories.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../constants/global_variables.dart';
-import '../../../providers/user_provider.dart';
 import '../search/screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName='/home';
+  static const String routeName = '/home';
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -17,22 +15,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void navigateToSearchScreen(String query){
-    Navigator.pushNamed(context, SearchScreen.routeName,arguments: query);
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
+
   @override
   Widget build(BuildContext context) {
-    final user=Provider.of<UserProvider>(context).user;
+    //final user=Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title:Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
@@ -45,13 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextFormField(
                       onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
-                        prefixIcon:InkWell(
-                          onTap: (){},
+                        prefixIcon: InkWell(
+                          onTap: () {},
                           child: const Padding(
                             padding: EdgeInsets.only(left: 6),
-                            child: Icon(Icons.search,
+                            child: Icon(
+                              Icons.search,
                               color: Colors.black,
-                              size: 23,),
+                              size: 23,
+                            ),
                           ),
                         ),
                         filled: true,
@@ -63,8 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(7)),
-                          borderSide: BorderSide(color: Colors.black38,
-                              width: 1),
+                          borderSide:
+                              BorderSide(color: Colors.black38, width: 1),
                         ),
                         hintText: 'Search Amazon.in',
                         hintStyle: const TextStyle(
@@ -78,21 +79,29 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 color: Colors.transparent,
-                  height: 42,
+                height: 42,
                 margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Icon(Icons.mic,color: Colors.black,size: 25,),
+                child: const Icon(
+                  Icons.mic,
+                  color: Colors.black,
+                  size: 25,
+                ),
               )
             ],
           ),
         ),
       ),
-      body:SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
-          children:const  [
+          children: [
             AddressBox(),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             TopCategories(),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             CarouselImage(),
             DealOfDay(),
           ],
@@ -101,4 +110,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

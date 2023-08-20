@@ -1,25 +1,27 @@
 import 'package:amazon_clone_f/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
-class UserProvider extends ChangeNotifier{
-  User _user=User(id: '',
-      name: '',
-      email: '',
-      password:'',
-      address: '',
-      type:'',
-      token: '',
-       cart: []);
-  
-  User get user=> _user;
+class UserProvider extends ChangeNotifier {
+  User _user = User(
+    id: '',
+    name: '',
+    email: '',
+    password: '',
+    address: '',
+    type: '',
+    token: '',
+    cart: [],
+  );
 
-  void setUser(String user){
-    _user=User.fromJson(user);
+  User get user => _user;
+
+  void setUser(String user) {
+    _user = User.fromJson(user);
     notifyListeners();
   }
 
-  void setUserFromModel(User user){
-    _user=user;
+  void setUserFromModel(User user) {
+    _user = user;
     notifyListeners();
   }
 }

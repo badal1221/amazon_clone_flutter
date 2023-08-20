@@ -47,8 +47,9 @@ class User{
       ),
     );
   }
-  String toJson()=>json.encode(toMap());
-  factory User.fromJson(String source)=>User.fromJson(json.decode(source));
+  String toJson() => json.encode(toMap());
+
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
 
   User copyWith({
     String? id,

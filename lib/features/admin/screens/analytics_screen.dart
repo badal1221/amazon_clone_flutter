@@ -29,10 +29,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   @override
   Widget build(BuildContext context) {
     return earnings==null||totalSales==null ? const Loader():
-    Column(
-      children: [
-        Text('\$$totalSales',style: const TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-      ],
+    Center(
+        child: Text(
+          'Total Sales:\$$totalSales',style: const TextStyle(fontSize: 20,fontWeight:FontWeight.bold),)
     );
   }
 }

@@ -24,28 +24,49 @@ class AdminServices{
     required List<File> images,
 })async{
     final userProvider=Provider.of<UserProvider>(context,listen: false);
-    try{
-      final cloudinary=CloudinaryPublic('dsbe70j0q','sxgstjn2');
-      List<String> imageUrls=[];
-      for(int i=0;i<images.length;i++){
-        CloudinaryResponse res=await cloudinary.uploadFile(CloudinaryFile.fromFile(images[i].path,folder: name));
+    try {
+      final cloudinary = CloudinaryPublic('denfgaxvg', 'uszbstnu');
+      List<String> imageUrls = [];
+
+      for (int i = 0; i < images.length; i++) {
+        CloudinaryResponse res = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(images[i].path, folder: name),
+        );
         imageUrls.add(res.secureUrl);
       }
-      Product product=Product(name: name, description: description, quantity: quantity, images: imageUrls, category: category, price: price);
-      http.Response res=await http.post(Uri.parse('$uri/admin/add-product'),headers: {
-          'Content-Type':'application/json; charset=UTF-8',
-          'x-auth-token':userProvider.user.token,
-        },
-        body: product.toJson()
+
+      Product product = Product(
+        name: name,
+        description: description,
+        quantity: quantity,
+        images: imageUrls,
+        category: category,
+        price: price,
       );
-      httpErrorHandle(response: res, context: context, onSuccess: (){
-         showSnackbar(context,'Product Added Successfully');
-         Navigator.pop(context);
-      },);
-    }catch(e){
+
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/add-product'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: product.toJson(),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackbar(context, 'Product Added Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch(e){
       showSnackbar(context,e.toString());
     }
   }
+
+
   Future<List<Product>> fetchAllProducts(BuildContext context) async {
     final userProvider=Provider.of<UserProvider>(context,listen: false);
     List<Product> productList=[];
@@ -88,6 +109,7 @@ class AdminServices{
       showSnackbar(context,e.toString());
     }
   }
+
   Future<List<Order>> fetchAllOrders(BuildContext context) async {
     final userProvider=Provider.of<UserProvider>(context,listen: false);
     List<Order> orderList=[];
@@ -108,6 +130,7 @@ class AdminServices{
     }
     return orderList;
   }
+
   void changeOrderStatus({required BuildContext context,
     required int status,
     required Order order,
@@ -131,6 +154,7 @@ class AdminServices{
       showSnackbar(context,e.toString());
     }
   }
+
   Future<Map<String,dynamic>> getEarnings(BuildContext context) async {
     final userProvider=Provider.of<UserProvider>(context,listen: false);
     List<Sales> sales=[];

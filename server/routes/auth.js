@@ -1,11 +1,12 @@
 const express=require("express");
 const User=require("../models/user");
 const bcryptjs=require("bcryptjs");
+const jwt=require("Jsonwebtoken");
+
 const authRouter=express.Router();
-const jwt=require("jsonwebtoken");
 
 authRouter.post("/api/signup",async (req,res)=>{
-    //get data from clint
+    //get data from client
     try{
             const {name,email,password}=req.body;
             const existingUser= await User.findOne({email});
@@ -27,7 +28,7 @@ authRouter.post("/api/signup",async (req,res)=>{
     }
 });
 
-authRouter.post('/api/signin',async(req,res)=>{
+authRouter.post("/api/signin",async(req,res)=>{
   try{
      const {email,password}=req.body;
      const user=await User.findOne({email});
@@ -61,6 +62,7 @@ authRouter.post('/tokenIsValid',async(req,res)=>{
 });
 
 //get user data
+const auth=require("../middlewares/auth");
 authRouter.get('/',auth,async (req,res)=>{
    const user=await User.findById(req.user);
    res.json({...user._doc,token:req.token});

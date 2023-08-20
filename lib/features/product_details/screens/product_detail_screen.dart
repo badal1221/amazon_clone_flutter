@@ -119,7 +119,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.product.id!,),
+                  Text(widget.product.name,),
                   Stars(rating: avgRating),
                 ],
               ),
@@ -131,22 +131,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               style: TextStyle(fontSize: 15),),
             ),
             CarouselSlider(
-               items:GlobalVariables.carouselImages.map((i){
-               return Builder(
-                   builder: (BuildContext context)=>Image.network(i,fit: BoxFit.contain,height: 200,),
-               );
-               }
-               ).toList(),
+              items: widget.product.images.map(
+                    (i) {
+                  return Builder(
+                    builder: (BuildContext context) => Image.network(
+                      i,
+                      fit: BoxFit.contain,
+                      height: 200,
+                    ),
+                  );
+                },
+              ).toList(),
               options: CarouselOptions(
-               viewportFraction:1,
+                viewportFraction: 1,
                 height: 300,
-              )
+              ),
             ),
             Container(color: Colors.black12,
             height:5 ,),
             Padding(padding: const EdgeInsets.all(8),
             child: RichText(text:TextSpan(
-              text:'Deal Price',style:const TextStyle(
+              text:'Deal Price:',style:const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.bold
@@ -154,7 +159,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               children:[
                 TextSpan(
                 text:'\$${widget.product.price}',style:const TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 color: Colors.red,
                 fontWeight: FontWeight.w500),)
               ],

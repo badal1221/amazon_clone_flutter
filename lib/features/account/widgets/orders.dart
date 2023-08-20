@@ -22,10 +22,8 @@ class _OrdersState extends State<Orders> {
     fetchOrders();
   }
   void fetchOrders() async{
-    orders=await accountServices.fetchMyOrders(context);
-    setState(() {
-
-    });
+    orders=await accountServices.fetchMyOrders(context:context);
+    setState(() {});
   }
 
   @override

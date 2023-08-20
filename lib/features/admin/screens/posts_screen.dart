@@ -41,29 +41,32 @@ class _PostsScreenState extends State<PostsScreen> {
   Widget build(BuildContext context) {
     return products==null?Loader()
         :Scaffold(
-      body:GridView.builder(itemCount:products!.length,
-      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context,index){
-              final productData=products![index];
-              return Column(
-                children: [
-                  SizedBox(height: 140,
-                      child: SingleProduct(
-                        image: productData.images[0],
-                      ),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(child: Text(productData.name,overflow: TextOverflow.ellipsis,maxLines: 2,
-                      ),
-                      ),
-                      IconButton(onPressed:()=>deleteProduct(productData, index)
-                        , icon: const Icon(Icons.delete_outline,),),
-                    ],
-                  ),
-                ],
-              );
-          }),
+      body:Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: GridView.builder(itemCount:products!.length,
+        gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemBuilder: (context,index){
+                final productData=products![index];
+                return Column(
+                  children: [
+                    SizedBox(height: 130,
+                        child: SingleProduct(
+                          image: productData.images[0],
+                        ),),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(child: Text(productData.name,overflow: TextOverflow.ellipsis,maxLines: 2,
+                        ),
+                        ),
+                        IconButton(onPressed:()=>deleteProduct(productData, index)
+                          , icon: const Icon(Icons.delete_outline,),),
+                      ],
+                    ),
+                  ],
+                );
+            }),
+      ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: navigateToAddProduct,

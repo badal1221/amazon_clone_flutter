@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
-import '../../../models/product.dart';
 import '../../../models/user.dart';
 import '../../../providers/user_provider.dart';
 
@@ -68,7 +67,7 @@ class AddressServices {
         onSuccess: () {
           showSnackBar(context, 'Your order has been placed!');
           User user = userProvider.user.copyWith(
-            cart: [],  //because we are not getting user as res we have to manually make cart empty
+            cart: [], //because we are not getting user as res we have to manually make cart empty
           );
           userProvider.setUserFromModel(user);
         },

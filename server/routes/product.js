@@ -1,6 +1,6 @@
 const express=require('express');
 const productRouter=express.Router();
-const auth=require('../middleware/auth');
+const auth=require('../middlewares/auth');
 const {Product}=require('../models/product');
 
 // /api/product?category=Essentials
@@ -27,13 +27,14 @@ productRouter.get('/api/products/search/:name',auth,async(req,res)=>{
      res.status(500).json({error:e.message});
    }
 });
+
 productRouter.post('/api/rate-product',auth,async(req,res)=>{
   try{
     const {id,rating}=req.body;
     let product=await Product.findById(id);
     for(let i=0;i<product.ratings.length;i++){
       if(product.ratings[i].userId==req.user){
-         product.ratings.splice(i,1);
+         product.ratings.splice(i,1);//delete if the user have rated
          break;
       }
     }
@@ -49,7 +50,7 @@ productRouter.post('/api/rate-product',auth,async(req,res)=>{
   }
 });
 
-productRouter.get('/api/deal-of-day',auth,async(req,res)=>{
+productRouter.get("/api/deal-of-day",auth,async(req,res)=>{
      try{
         let products=await Product.find({});
         products=products.sort((a,b)=>{
@@ -62,11 +63,11 @@ productRouter.get('/api/deal-of-day',auth,async(req,res)=>{
                bSum+=b.ratings[i].rating;
            }
            return aSum<bSum?1:-1;
-        });
-        res.json(products[0]);
+        });//sort products based on rating
+        res.json(products[0]);//return the product with highest rating
      }catch(e){
         res.status(500).json({error:e.message});
      }
-})
+});
 
 module.exports=productRouter;
